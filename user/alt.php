@@ -10,8 +10,9 @@ $cond = array();
 $cond["account"] = $user["account"];
 
 $record = DB::getInstance()->find(DB_NAME,TB_USER,"*",$cond);
-if(count($record) && $record[0]["id"] != (int)$user["id"]){
-	echo back_data(-1);
+
+if(count($record) && $record[0]["id"] != $user["id"]){
+	echo back_data(-2);
 	return;
 }
 
