@@ -26,7 +26,7 @@ $change["name"] = $user["name"];
 
 $ret = DB::getInstance()->update(DB_NAME,TB_USER,$change,$cond,true);
 
-$data = [];
+$data = array();
 $data["ret"] = $ret;
 
 $json = json_encode($data);
