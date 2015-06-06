@@ -4,14 +4,22 @@ require_once '../DB.php';
 
 header('Content-type: application/x-javascript');
 
-function get_all(){
-	$db = DB::getInstance();
-	$ret = $db->find(DB_NAME,TB_USER,"*");
-	return $ret;
+
+$data = null;
+if(isset($_GET["id"])){
+	$cond = array();
+	$cond["id"] = $_GET["id"];
+	$data= DB::getInstance()->find(DB_NAME,TB_USER,"*",$cond);
+	if(!count($data)){
+		$data = null;
+	}else{
+		$data = $data[0];
+	}
+}else{
+	$data = DB::getInstance()->find(DB_NAME,TB_USER,"*");
 }
 
-$users = get_all();
 
-$json = json_encode($users);
+$json = json_encode($data);
 $back = $_GET["callback"];
 echo "$back($json)";

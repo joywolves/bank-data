@@ -10,23 +10,14 @@ $cond = array();
 $cond["account"] = $user["account"];
 
 $record = DB::getInstance()->find(DB_NAME,TB_USER,"*",$cond);
-if(count($record) && $record[0]["id"] != $user["id"]){
+if(count($record)){
 	echo back_data(-1);
 	return;
 }
 
-$cond = array();
-$cond["id"] = $user["id"];
+$ret = DB::getInstance()->insert(DB_NAME,TB_USER,$user);
 
-$change = array();
-$change["type"] = $user["type"];
-$change["account"] = $user["account"];
-$change["pass"] = $user["pass"];
-$change["name"] = $user["name"];
-
-$ret = DB::getInstance()->update(DB_NAME,TB_USER,$change,$cond,true);
-
-$data = [];
+$data = array();
 $data["ret"] = $ret;
 
 $json = json_encode($data);
